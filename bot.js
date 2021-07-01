@@ -23,24 +23,61 @@ class Gaym {
     constructor() {
         this.questions_dict = undefined
         this.questions = undefined
+        this.player = undefined
         this.count = -1
-        this.index = 0
+        this.index = -1
         this.ready = false
     }
 
-    init(channel) {
+    init(msg) {
         exec(`./polygen 20 3 2 10 noice __JSON_MODE__`, (error, stdout, stderr) => {
-            this.questions_dict = JSON.parse(stdout)
-            this.questions = Object.keys(this.questions_dict.questions)
+            this.questions_dict = JSON.parse(stdout).questions
+            this.questions = Object.keys(this.questions_dict)
+            this.player = msg.author
             this.count = this.questions.length
             this.ready = true
-            this.ask(channel)
+
+            msg.channel.send("Beginning a gaym!")
+
+            this.ask(msg.channel)
         })
     }
 
     ask(channel) {
-        channel.send(this.questions[this.index])
         this.index++
+        let questionmsg = (this.index + 1).toString() + ") Plz solve "
+            + this.questions[this.index] + " = 0"
+        channel.send(questionmsg)
+    }
+
+    is_correct(ans_str) {
+        let ans_array = ans_str.split(" ")
+        let key_array = this.questions_dict[this.questions[this.index]]
+
+        let correct = true
+        if (ans_array.length != key_array.length) {
+            correct = false
+        }
+        else {
+            for (let ans of ans_array) {
+                if (!key_array.includes(ans)) {
+                    correct = false;
+                }
+            }
+        }
+
+        return correct
+    }
+
+    checkanswer(msg) // * Check answer of current question
+    {
+        if (this.is_correct(msg.content)) {
+            msg.channel.send("OOH YEAH CORRECT!")
+        }
+        else {
+            let key_array = this.questions_dict[this.questions[this.index]]
+            msg.channel.send(`You moron, correct is ${key_array}`)
+        }
     }
 }
 
@@ -54,14 +91,24 @@ function eval_msg(msg) {
     logconsole(`Recieve message from ${msg.author.tag} : ${msg.content}`)
 
     if (msg.content.startsWith("!challenge")) {
+        if (current_gaym) {
+            msg.channel.send(`BRUH, the game is already running`)
+            return
+        }
+
         msg.channel.send(`<@!${msg.author.id}> you dare challenge me?`)
         current_gaym = new Gaym()
-        current_gaym.init(msg.channel)
+        current_gaym.init(msg)
         return
     }
 
-    if (current_gaym)
-    {
+    if (current_gaym) {
+        if (msg.author != current_gaym.player) {
+            // * Probably other guys
+            return
+        }
+
+        current_gaym.checkanswer(msg)
         current_gaym.ask(msg.channel)
     }
 }

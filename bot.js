@@ -5,6 +5,7 @@
  */
 
 const auth = require("./auth.json")
+const logconsole = require("./utils/logconsole")
 
 const Discord = require("discord.js")
 
@@ -14,3 +15,28 @@ client.on("ready", () => {
 })
 
 client.login(auth.token)
+
+// * DEBUG ZONE
+
+const readline = require("readline") // * Module for debug only
+
+const rl = readline.createInterface({
+    input: process.stdin,
+    output: process.stdout
+})
+
+rl.on('line', (input) => {
+    debug(input)
+})
+
+function debug(commandstr) {
+    let command = commandstr.split(" ")
+    switch (command[0]) {
+        case "logout":
+            client.destroy()
+            logconsole("Successfully safely logged out", "LOGOUT")
+            process.exit(0)
+        default:
+            logconsole(`Unknown Command "${command[0]}"`, "DEBUG-ERROR")
+    }
+}

@@ -135,6 +135,12 @@ function eval_msg(msg) {
 
     logconsole(`Recieve message from ${msg.author.tag} : ${msg.content}`)
 
+    if(msg.content.startsWith("!howtoplay"))
+    {
+        msg.channel.send("https://github.com/Leomotors/Discord-Polynomial-Master/blob/main/docs/howtoplay.md")
+        logconsole(`Guided ${msg.author.tag} how to play`, "GUIDE")
+    }
+
     if (msg.content.startsWith("!challenge")) {
         if (current_gaym) {
             logconsole(`${msg.author.tag} challenged me but a game is already running!`, "DECLINE")

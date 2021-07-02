@@ -2,6 +2,11 @@
 
 The Discord Bot that would like to challenge you! To do "Factor Polynomials Challenge".
 
+## 📚 Documentation
+
+<a href="https://github.com/Leomotors/Discord-Polynomial-Master/blob/main/docs/howtoplay.md">
+How to play</a>
+
 ## 👨‍💻 How to Implement
 
 * Clone or Download Repo

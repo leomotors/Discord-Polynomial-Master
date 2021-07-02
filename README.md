@@ -42,7 +42,7 @@ You can get the source code
 <a href="https://github.com/Leomotors/Polynomial-Problems-Generator">
  here</a>
 
-Require Build 89+
+Require Build 90+
 
 ### npm Packages
 

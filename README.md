@@ -4,11 +4,13 @@ The Discord Bot that would like to challenge you! To do "Factor Polynomials Chal
 
 ## 📚 Documentation
 
+How to play:
 <a href="https://github.com/Leomotors/Discord-Polynomial-Master/blob/main/docs/howtoplay.md">
-How to play</a>
+Here</a>
 
+For whom controls the bot:
 <a href="https://github.com/Leomotors/Discord-Polynomial-Master/blob/main/docs/command.md">
-For whom controls the bot</a>
+Here</a>
 
 ## 👨‍💻 How to Implement
 
@@ -49,3 +51,17 @@ Require Build 89+
 **@discordjs/opus** : ```npm i @discordjs/opus```
 
 **Note**: If installation is failed, try again with elevation.
+
+## 🌿 Parent of this Repository
+
+The one who generates problems:
+<a href="https://github.com/Leomotors/Polynomial-Problems-Generator">
+ Leomotors/Polynomial-Problems-Generator</a>
+
+Many code are reused from this:
+<a href="https://github.com/Leomotors/Polynomial-Salim-Bot">
+ Leomotors/Salim-Bot</a>
+
+## 🙏 Spread da hype!
+
+<img src="https://github.com/Leomotors/Polynomial-Problems-Generator/blob/1.2.1/assets/mafs.jpg" width=500>

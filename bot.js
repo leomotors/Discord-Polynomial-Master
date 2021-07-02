@@ -31,7 +31,7 @@ class Gaym {
     }
 
     init(msg) {
-        exec(`./polygen 20 3 2 10 noice __JSON_MODE__`, (error, stdout, stderr) => {
+        exec(`./polygen 20 1 2 10 noice __JSON_MODE__`, (error, stdout, stderr) => {
             this.questions_dict = JSON.parse(stdout).questions
             this.questions = Object.keys(this.questions_dict)
             this.player = msg.author

@@ -59,7 +59,7 @@ The one who generates problems:
  Leomotors/Polynomial-Problems-Generator</a>
 
 Many code are reused from this:
-<a href="https://github.com/Leomotors/Polynomial-Salim-Bot">
+<a href="https://github.com/Leomotors/Salim-Bot">
  Leomotors/Salim-Bot</a>
 
 ## 🙏 Spread da hype!

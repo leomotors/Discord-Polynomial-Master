@@ -101,7 +101,7 @@ class Gaym {
     igiveup(msg) {
         msg.channel.send(`Challenge Aborted! **You scored ${this.score}**`)
         msg.channel.send(`Even though you give up, but *I will never give you up*`)
-        msg.channel.send("https://tenor.com/view/mind-blown-amazed-explosion-space-omg-gif-10279314")
+        msg.channel.send("https://tenor.com/view/dance-moves-dancing-singer-groovy-gif-17029825")
     }
 }
 
@@ -142,7 +142,7 @@ function eval_msg(msg) {
             return
         }
     }
-    
+
     if (current_gaym) {
         if (msg.author != current_gaym.player) {
             // * Probably other guys

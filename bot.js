@@ -130,6 +130,7 @@ function eval_msg(msg) {
         if (current_gaym) {
             if (msg.author == current_gaym.player) {
                 current_gaym.igiveup(msg)
+                current_gaym = undefined
                 return
             }
             else {

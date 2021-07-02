@@ -26,6 +26,7 @@ class Gaym {
         this.player = undefined
         this.count = -1
         this.index = -1
+        this.score = 0
         this.ready = false
     }
 
@@ -43,7 +44,8 @@ class Gaym {
         })
     }
 
-    ask(channel) {
+    ask(channel) // * Move to next question and ask
+    {
         this.index++
         let questionmsg = (this.index + 1).toString() + ") Plz solve "
             + this.questions[this.index] + " = 0"
@@ -73,11 +75,23 @@ class Gaym {
     {
         if (this.is_correct(msg.content)) {
             msg.channel.send("OOH YEAH CORRECT!")
+            this.score += 1
         }
         else {
             let key_array = this.questions_dict[this.questions[this.index]]
-            msg.channel.send(`You moron, correct is ${key_array}`)
+            msg.channel.send(`You SUCC, correct is ${key_array}`)
         }
+    }
+
+    finalize(msg) {
+        msg.channel.send(`Challenge Completed! **You scored ${this.score}/${this.count}**`)
+
+        if (this.score < 5)
+            msg.channel.send("You succ you know? NOOB!\nhttps://tenor.com/view/noob-risitas-funny-meme-laughing-gif-18917081")
+        else if (this.score < 8)
+            msg.channel.send("intermediate intermediate")
+        else
+            msg.channel.send("YOU R GOD!")
     }
 }
 
@@ -109,6 +123,13 @@ function eval_msg(msg) {
         }
 
         current_gaym.checkanswer(msg)
+
+        if (current_gaym.index + 1 >= current_gaym.count) {
+            current_gaym.finalize(msg)
+            current_gaym = undefined
+            return
+        }
+
         current_gaym.ask(msg.channel)
     }
 }

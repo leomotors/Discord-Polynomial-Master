@@ -6,6 +6,8 @@
 
 const auth = require("./auth.json")
 const logconsole = require("./utils/logconsole")
+const words = require("./assets/json/words.json")
+
 const { exec } = require("child_process")
 
 const Discord = require("discord.js")
@@ -178,7 +180,6 @@ function eval_msg(msg) {
 // * DEBUG ZONE
 
 const readline = require("readline") // * Module for debug only
-const { send } = require("process")
 
 const rl = readline.createInterface({
     input: process.stdin,

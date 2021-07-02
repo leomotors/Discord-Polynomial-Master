@@ -86,12 +86,22 @@ class Gaym {
     finalize(msg) {
         msg.channel.send(`Challenge Completed! **You scored ${this.score}/${this.count}**`)
 
-        if (this.score < 5)
-            msg.channel.send("You succ you know? NOOB!\nhttps://tenor.com/view/noob-risitas-funny-meme-laughing-gif-18917081")
+        if (this.score < 5) {
+            msg.channel.send("You succ you know? NOOB!")
+            msg.channel.send("https://tenor.com/view/noob-risitas-funny-meme-laughing-gif-18917081")
+        }
         else if (this.score < 8)
             msg.channel.send("intermediate intermediate")
-        else
+        else {
             msg.channel.send("YOU R GOD!")
+            msg.channel.sned("https://tenor.com/view/mind-blown-amazed-explosion-space-omg-gif-10279314")
+        }
+    }
+
+    igiveup(msg) {
+        msg.channel.send(`Challenge Aborted! **You scored ${this.score}**`)
+        msg.channel.send(`Even though you give up, but *I will never give you up*`)
+        msg.channel.send("https://tenor.com/view/mind-blown-amazed-explosion-space-omg-gif-10279314")
     }
 }
 
@@ -116,6 +126,23 @@ function eval_msg(msg) {
         return
     }
 
+    if (msg.content.startsWith("!giveup")) {
+        if (current_gaym) {
+            if (msg.author == current_gaym.player) {
+                current_gaym.igiveup(msg)
+                return
+            }
+            else {
+                msg.channel.send(`Not your game! BRUH`)
+                return
+            }
+        }
+        else {
+            msg.channel.send(`You give up since game still not start yet? You such a loser <@!${msg.author.id}>`)
+            return
+        }
+    }
+    
     if (current_gaym) {
         if (msg.author != current_gaym.player) {
             // * Probably other guys
@@ -138,6 +165,7 @@ function eval_msg(msg) {
 // * DEBUG ZONE
 
 const readline = require("readline") // * Module for debug only
+const { send } = require("process")
 
 const rl = readline.createInterface({
     input: process.stdin,

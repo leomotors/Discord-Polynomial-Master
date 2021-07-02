@@ -48,8 +48,6 @@ Require Build 90+
 
 **Discord** (Of course you need this) : ```npm i discord.js```
 
-**@discordjs/opus** : ```npm i @discordjs/opus```
-
 **Note**: If installation is failed, try again with elevation.
 
 ## 🌿 Parent of this Repository

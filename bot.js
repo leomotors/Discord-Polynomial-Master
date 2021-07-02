@@ -4,6 +4,7 @@
  * * Made by @Leomotors
  */
 
+// * Importing important stuff
 const auth = require("./auth.json")
 const logconsole = require("./utils/logconsole.js")
 const words = require("./assets/json/words.json")
@@ -12,6 +13,7 @@ const randomfrom = require("./utils/randomfrom.js")
 
 const { exec } = require("child_process")
 
+// * Discord Setup
 const Discord = require("discord.js")
 
 const client = new Discord.Client()
@@ -25,6 +27,7 @@ client.login(auth.token)
 
 client.on("message", eval_msg)
 
+// * Class for handling a game
 class Gaym {
     constructor() {
         this.questions_dict = undefined
@@ -122,6 +125,8 @@ class Gaym {
 }
 
 let current_gaym = undefined
+
+// * Main Event which handle incoming messages, heart of the program!
 function eval_msg(msg) {
     if (msg.author.id == client.user.id) {
         // * It's your own message!

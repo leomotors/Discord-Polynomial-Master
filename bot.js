@@ -147,6 +147,18 @@ function eval_msg(msg) {
     if (current_gaym) {
         if (msg.author != current_gaym.player) {
             // * Probably other guys
+            if (current_gaym.is_correct(msg.content)) {
+                msg.channel.send(`NO TELLING ANSWER BRO! <@!${msg.author.id}>`)
+
+                if (current_gaym.index + 1 >= current_gaym.count) {
+                    current_gaym.finalize(msg)
+                    current_gaym = undefined
+                }
+                else {
+                    msg.channel.send(`Moving forward to next question`)
+                    current_gaym.ask(msg.channel)
+                }
+            }
             return
         }
 

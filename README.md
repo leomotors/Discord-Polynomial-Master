@@ -7,6 +7,9 @@ The Discord Bot that would like to challenge you! To do "Factor Polynomials Chal
 <a href="https://github.com/Leomotors/Discord-Polynomial-Master/blob/main/docs/howtoplay.md">
 How to play</a>
 
+<a href="https://github.com/Leomotors/Discord-Polynomial-Master/blob/main/docs/command.md">
+For whom controls the bot</a>
+
 ## 👨‍💻 How to Implement
 
 * Clone or Download Repo

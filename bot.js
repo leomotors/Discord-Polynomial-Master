@@ -137,8 +137,9 @@ function eval_msg(msg) {
 
     if(msg.content.startsWith("!howtoplay"))
     {
-        msg.channel.send("https://github.com/Leomotors/Discord-Polynomial-Master/blob/main/docs/howtoplay.md")
+        msg.channel.send("<https://github.com/Leomotors/Discord-Polynomial-Master/blob/main/docs/howtoplay.md>")
         logconsole(`Guided ${msg.author.tag} how to play`, "GUIDE")
+        return
     }
 
     if (msg.content.startsWith("!challenge")) {

@@ -1,3 +1,22 @@
 {
-    
+    "end_game": {
+        "noob_msg": [
+            "You r succ you know? NOOB!"
+        ],
+        "noob_pic": [
+            "https://tenor.com/view/noob-risitas-funny-meme-laughing-gif-18917081"
+        ],
+        "intermediate_msg": [
+            "intermediate intermediate"
+        ],
+        "intermediate_pic": [
+            "https://tenor.com/view/blinking-eyes-huh-what-really-gif-7953610"
+        ],
+        "god_msg": [
+            "YOU R GOD!"
+        ],
+        "god_pic": [
+            "https://tenor.com/view/mind-blown-amazed-explosion-space-omg-gif-10279314"
+        ]
+    }
 }

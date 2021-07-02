@@ -5,4 +5,4 @@ The Discord Bot that would like to challenge you! To do "Factor Polynomials Chal
 ## Dependencies
 
 polygen: <a href="https://github.com/Leomotors/Polynomial-Problems-Generator">
-Polynomial Problems Generator</a> (Build 87+)
+Polynomial Problems Generator</a> (Build 89+)

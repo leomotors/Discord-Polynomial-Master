@@ -5,8 +5,9 @@
  */
 
 const auth = require("./auth.json")
-const logconsole = require("./utils/logconsole")
+const logconsole = require("./utils/logconsole.js")
 const words = require("./assets/json/words.json")
+const randomfrom = require("./utils/randomfrom.js")
 
 const { exec } = require("child_process")
 
@@ -97,14 +98,16 @@ class Gaym {
         logconsole(`Challenge with ${this.player.tag} ended, scored ${this.score}/${this.count}`)
 
         if (this.score < 5) {
-            msg.channel.send("You succ you know? NOOB!")
-            msg.channel.send("https://tenor.com/view/noob-risitas-funny-meme-laughing-gif-18917081")
+            msg.channel.send(randomfrom(words.end_game.noob_msg))
+            msg.channel.send(randomfrom(words.end_game.noob_pic))
         }
-        else if (this.score < 8)
-            msg.channel.send("intermediate intermediate")
+        else if (this.score < 8) {
+            msg.channel.send(randomfrom(words.end_game.intermediate_msg))
+            msg.channel.send(randomfrom(words.end_game.intermediate_pic))
+        }
         else {
-            msg.channel.send("YOU R GOD!")
-            msg.channel.send("https://tenor.com/view/mind-blown-amazed-explosion-space-omg-gif-10279314")
+            msg.channel.send(randomfrom(words.end_game.god_msg))
+            msg.channel.send(randomfrom(words.end_game.god_pic))
         }
     }
 

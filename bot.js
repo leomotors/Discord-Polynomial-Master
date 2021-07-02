@@ -7,6 +7,7 @@
 const auth = require("./auth.json")
 const logconsole = require("./utils/logconsole.js")
 const words = require("./assets/json/words.json")
+const activity = require("./assets/json/activity.json")
 const randomfrom = require("./utils/randomfrom.js")
 
 const { exec } = require("child_process")
@@ -16,6 +17,8 @@ const Discord = require("discord.js")
 const client = new Discord.Client()
 client.on("ready", () => {
     console.log(`[LOGIN SUCCESS] Successfully logged in as ${client.user.tag}.`)
+    client.user.setActivity(`${activity.activity.name}`, { type: activity.activity.type })
+    console.log("==========> BOT READY <==========")
 })
 
 client.login(auth.token)
@@ -44,7 +47,7 @@ class Gaym {
             this.count = this.questions.length
             this.ready = true
 
-            msg.channel.send("Beginning a gaym!")
+            msg.channel.send(`Beginning a gaym! with difficulty of ${this.difficulty}`)
             logconsole(`Starting a gaym with ${msg.author.tag} and difficulty of ${this.difficulty}`, "GAYM START")
 
             this.ask(msg.channel)
@@ -94,7 +97,7 @@ class Gaym {
     }
 
     finalize(msg) {
-        msg.channel.send(`Challenge Completed! **You scored ${this.score}/${this.count}**`)
+        msg.channel.send(`Challenge Completed! With difficulty of ${this.difficulty}, **You scored ${this.score}/${this.count}**`)
         logconsole(`Challenge with ${this.player.tag} ended, scored ${this.score}/${this.count}`)
 
         if (this.score < 5) {
@@ -219,4 +222,4 @@ function debug(commandstr) {
     }
 }
 
-console.log("==========> BOT READY <==========")
+console.log("[SETUP COMPLETE] All imports events functions and classes have been set!")

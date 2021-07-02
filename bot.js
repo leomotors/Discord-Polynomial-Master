@@ -26,6 +26,7 @@ class Gaym {
         this.questions_dict = undefined
         this.questions = undefined
         this.player = undefined
+        this.difficulty = -1
         this.count = -1
         this.index = -1
         this.score = 0
@@ -34,13 +35,16 @@ class Gaym {
 
     init(msg) {
         exec(`./polygen 20 1 2 10 noice __JSON_MODE__`, (error, stdout, stderr) => {
-            this.questions_dict = JSON.parse(stdout).questions
+            let parsed_stdout = JSON.parse(stdout)
+            this.questions_dict = parsed_stdout.questions
+            this.difficulty = parsed_stdout.difficulty
             this.questions = Object.keys(this.questions_dict)
             this.player = msg.author
             this.count = this.questions.length
             this.ready = true
 
             msg.channel.send("Beginning a gaym!")
+            logconsole(`Starting a gaym with ${msg.author.tag} and difficulty of ${this.difficulty}`, "GAYM START")
 
             this.ask(msg.channel)
         })
@@ -52,6 +56,7 @@ class Gaym {
         let questionmsg = (this.index + 1).toString() + ") Plz solve "
             + this.questions[this.index] + " = 0"
         channel.send(questionmsg)
+        logconsole(`Gave ${this.player.tag} question #${this.index + 1}`, "GAYM")
     }
 
     is_correct(ans_str) {
@@ -77,16 +82,19 @@ class Gaym {
     {
         if (this.is_correct(msg.content)) {
             msg.channel.send("OOH YEAH CORRECT!")
+            logconsole(`${this.player.tag} get this right!`, "GAYM")
             this.score += 1
         }
         else {
             let key_array = this.questions_dict[this.questions[this.index]]
             msg.channel.send(`You SUCC, correct is ${key_array}`)
+            logconsole(`${this.player.tag} get this WRONG!`, "GAYM")
         }
     }
 
     finalize(msg) {
         msg.channel.send(`Challenge Completed! **You scored ${this.score}/${this.count}**`)
+        logconsole(`Challenge with ${this.player.tag} ended, scored ${this.score}/${this.count}`)
 
         if (this.score < 5) {
             msg.channel.send("You succ you know? NOOB!")
@@ -96,13 +104,13 @@ class Gaym {
             msg.channel.send("intermediate intermediate")
         else {
             msg.channel.send("YOU R GOD!")
-            msg.channel.sned("https://tenor.com/view/mind-blown-amazed-explosion-space-omg-gif-10279314")
+            msg.channel.send("https://tenor.com/view/mind-blown-amazed-explosion-space-omg-gif-10279314")
         }
     }
 
     igiveup(msg) {
         msg.channel.send(`Challenge Aborted! **You scored ${this.score}**`)
-        msg.channel.send(`Even though you give up, but *I will never give you up*`)
+        msg.channel.send(`Even though you give up, but *I will never gonna give you up*`)
         msg.channel.send("https://tenor.com/view/dance-moves-dancing-singer-groovy-gif-17029825")
     }
 }
@@ -118,11 +126,13 @@ function eval_msg(msg) {
 
     if (msg.content.startsWith("!challenge")) {
         if (current_gaym) {
+            logconsole(`${msg.author.tag} challenged me but a game is already running!`, "DECLINE")
             msg.channel.send(`BRUH, the game is already running`)
             return
         }
 
         msg.channel.send(`<@!${msg.author.id}> you dare challenge me?`)
+
         current_gaym = new Gaym()
         current_gaym.init(msg)
         return
@@ -131,16 +141,19 @@ function eval_msg(msg) {
     if (msg.content.startsWith("!giveup")) {
         if (current_gaym) {
             if (msg.author == current_gaym.player) {
+                logconsole(`${msg.author.tag} decided to give up`, "GAYM END")
                 current_gaym.igiveup(msg)
                 current_gaym = undefined
                 return
             }
             else {
+                logconsole(`${msg.author.tag} would like to give up on the game they are not playing!`, "DECLINE")
                 msg.channel.send(`Not your game! BRUH`)
                 return
             }
         }
         else {
+            logconsole(`${msg.author.tag} would like to give up on the game they are not playing!`, "DECLINE")
             msg.channel.send(`You give up since game still not start yet? You such a loser <@!${msg.author.id}>`)
             return
         }
@@ -151,6 +164,7 @@ function eval_msg(msg) {
             // * Probably other guys
             if (current_gaym.is_correct(msg.content)) {
                 msg.channel.send(`NO TELLING ANSWER BRO! <@!${msg.author.id}>`)
+                logconsole(`${msg.author.tag} is telling the answer!`, "CHEAT DETECTED")
 
                 if (current_gaym.index + 1 >= current_gaym.count) {
                     current_gaym.finalize(msg)
@@ -201,3 +215,5 @@ function debug(commandstr) {
             logconsole(`Unknown Command "${command[0]}"`, "DEBUG-ERROR")
     }
 }
+
+console.log("==========> BOT READY <==========")

@@ -101,7 +101,7 @@ class Gaym {
 
     finalize(msg) {
         msg.channel.send(`Challenge Completed! With difficulty of ${this.difficulty}, **You scored ${this.score}/${this.count}**`)
-        logconsole(`Challenge with ${this.player.tag} ended, scored ${this.score}/${this.count}`)
+        logconsole(`Challenge with ${this.player.tag} ended, scored ${this.score}/${this.count}`, "GAYM")
 
         if (this.score < 5) {
             msg.channel.send(randomfrom(words.end_game.noob_msg))

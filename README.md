@@ -9,7 +9,7 @@ How to play:
 Here</a>
 
 For whom controls the bot:
-<a href="https://github.com/Leomotors/Discord-Polynomial-Master/blob/main/docs/command.md">
+<a href="https://github.com/Leomotors/Discord-Polynomial-Master/blob/main/docs/botctrl.md">
 Here</a>
 
 ## 👨‍💻 How to Implement

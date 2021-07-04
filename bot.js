@@ -98,8 +98,9 @@ class Gaym {
     finalize(msg) {
         let timeused = Date.now() - this.start // * ms
 
-        msg.channel.send(`Challenge Completed! With difficulty of ${this.difficulty}, **You scored ${this.score}/${this.count}**`)
-        msg.channel.send(`Time used: ${timeused/1000} seconds`)
+        msg.channel.send(`**Challenge Completed!**\nWith difficulty of ${this.difficulty}, **You scored ${this.score}/${this.count}** and used ${timeused / 1000} seconds`)
+
+        msg.channel.send(`Your PP is ${pp(timeused)}`)
 
         logconsole(`Challenge with ${this.player.tag} ended, scored ${this.score}/${this.count}, consumed ${timeused} ms`, "GAYM")
 
@@ -115,6 +116,16 @@ class Gaym {
             msg.channel.send(randomfrom(words.end_game.god_msg))
             msg.channel.send(randomfrom(words.end_game.god_pic))
         }
+    }
+
+    pp(timeused) // * Calculate Performance Point
+    {
+        /**
+         * * PP = (diff/timeused) * (correct:all ratio)^2 * (questions ^ 0.5)
+         */
+        let pp = (this.difficulty / timeused) * Math.pow(this.correct / this.count, 2) * Math.pow(this.count, 0.5)
+
+        msg.channel.send(`Your PP is ${(pp > 0) ? pp : "*too smol to be shown"}`)
     }
 
     igiveup(msg) {

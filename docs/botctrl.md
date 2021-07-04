@@ -6,6 +6,10 @@ Things whom controls the bot need to know
 
 This bot feature console which you can type command into
 
+### stopgaym
+
+Force to abort the current game
+
 ### logout
 
 Properly logout

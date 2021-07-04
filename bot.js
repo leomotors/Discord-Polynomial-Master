@@ -33,6 +33,7 @@ class Gaym {
         this.index = -1
         this.score = 0
         this.ready = false
+        this.lastchannel = undefined
     }
 
     init(msg, strike = 0) {
@@ -66,6 +67,7 @@ class Gaym {
             this.count = this.questions.length
             this.ready = true
             this.start = Date.now()
+            this.lastchannel = msg.channel
 
             if (this.count != nquestions) {
                 logconsole(`Got ${this.count} questions instead of ${nquestions}! blame Polynomial Problems Generator`, "ERROR")
@@ -276,10 +278,16 @@ rl.on('line', (input) => {
 function debug(commandstr) {
     let command = commandstr.split(" ")
     switch (command[0]) {
+        case "stopgaym":
+            current_gaym.lastchannel.send(`This gaym with <@!${current_gaym.player.id}> has been forced to abort by the owner`)
+            logconsole(`Aborted Current Gaym with ${current_gaym.player.tag}`, "DEBUG")
+            current_gaym = undefined
+            break
         case "logout":
             client.destroy()
             logconsole("Successfully safely logged out", "LOGOUT")
             process.exit(0)
+
         default:
             logconsole(`Unknown Command "${command[0]}"`, "DEBUG-ERROR")
     }

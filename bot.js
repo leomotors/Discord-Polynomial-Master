@@ -35,8 +35,29 @@ class Gaym {
         this.ready = false
     }
 
-    init(msg) {
-        exec(`./polygen 20 1 2 10 noice __JSON_MODE__`, (error, stdout, stderr) => {
+    init(msg, strike = 0) {
+        // * Default = 201210 -> 20|1|2|10
+        let num = 20 // * [2,99]
+        let denom = 1 // * [1,9]
+        let degree = 2 // * [2,9]
+        let nquestions = 10 // * [2,99]
+
+        if (msg.content.split(" ").length > 1) {
+            let holynumber = msg.content.split(" ")[1]
+            num = Math.floor(holynumber / 10000)
+            denom = Math.floor((holynumber % 10000) / 1000)
+            degree = Math.floor((holynumber % 1000) / 100)
+            nquestions = Math.floor(holynumber % 100)
+
+            if (num < 2 || denom < 1 || degree < 2 || nquestions < 2 || holynumber > 999999 || isNaN(holynumber)) {
+                msg.channel.send("BRUH! That code does not exists")
+                logconsole(`Given Invalid Code from ${msg.author.tag}`, "DECLINE")
+                current_gaym = undefined
+                return
+            }
+        }
+
+        exec(`./polygen ${num} ${denom} ${degree} ${nquestions} noice __JSON_MODE__`, (error, stdout, stderr) => {
             let parsed_stdout = JSON.parse(stdout)
             this.questions_dict = parsed_stdout.questions
             this.difficulty = parsed_stdout.difficulty
@@ -46,9 +67,15 @@ class Gaym {
             this.ready = true
             this.start = Date.now()
 
-            if (this.count != 10) {
-                logconsole(`Got ${this.count} questions instead of 10! blame Polynomial Problems Generator`, "ERROR")
-                this.init(msg)
+            if (this.count != nquestions) {
+                logconsole(`Got ${this.count} questions instead of ${nquestions}! blame Polynomial Problems Generator`, "ERROR")
+                if (strike >= 3) {
+                    msg.channel.send(`ERROR GENERATING QUESTIONS`)
+                    logconsole(`Game Initialization Failed!`, "FATAL ERROR")
+                    current_gaym = undefined
+                    return
+                }
+                this.init(msg, strike + 1)
                 return
             }
 
@@ -235,6 +262,7 @@ function eval_msg(msg) {
 // * DEBUG ZONE
 
 const readline = require("readline") // * Module for debug only
+const { type } = require("os")
 
 const rl = readline.createInterface({
     input: process.stdin,

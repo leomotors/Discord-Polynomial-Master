@@ -46,6 +46,13 @@ class Gaym {
             this.ready = true
             this.start = Date.now()
 
+            if(this.count != 10)
+            {
+                logconsole(`Got ${this.count} questions instead of 10!`, "ERROR")
+                this.init()
+                return
+            }
+
             msg.channel.send(`Beginning a gaym! with difficulty of ${this.difficulty}`)
             logconsole(`Starting a gaym with ${msg.author.tag} and difficulty of ${this.difficulty}`, "GAYM START")
 
@@ -100,9 +107,11 @@ class Gaym {
 
         msg.channel.send(`**Challenge Completed!**\nWith difficulty of ${this.difficulty}, **You scored ${this.score}/${this.count}** and used ${timeused / 1000} seconds`)
 
-        msg.channel.send(`Your PP is ${pp(timeused)}`)
+        let user_pp = this.pp(timeused)
 
-        logconsole(`Challenge with ${this.player.tag} ended, scored ${this.score}/${this.count}, consumed ${timeused} ms`, "GAYM")
+        msg.channel.send(`Your PP is ${user_pp > 0 ? user_pp : "*too smol to be displayed*"}`)
+
+        logconsole(`Challenge with ${this.player.tag} ended, scored ${this.score}/${this.count}, consumed ${timeused} ms, pp is ${user_pp}`, "GAYM")
 
         if (this.score < 5) {
             msg.channel.send(randomfrom(words.end_game.noob_msg))
@@ -121,11 +130,11 @@ class Gaym {
     pp(timeused) // * Calculate Performance Point
     {
         /**
-         * * PP = (diff/timeused) * (correct:all ratio)^2 * (questions ^ 0.5)
+         * * PP = (diff/timeused) * (correct:all ratio)^2 * (questions ^ 0.5) * 10^6
          */
-        let pp = (this.difficulty / timeused) * Math.pow(this.correct / this.count, 2) * Math.pow(this.count, 0.5)
+        let user_pp = (this.difficulty / timeused) * Math.pow(this.score / this.count, 2) * Math.pow(this.count, 0.5)
 
-        msg.channel.send(`Your PP is ${(pp > 0) ? pp : "*too smol to be shown"}`)
+        return user_pp * 1000000
     }
 
     igiveup(msg) {

@@ -141,11 +141,12 @@ class Gaym {
 
         logconsole(`Challenge with ${this.player.tag} ended, scored ${this.score}/${this.count}, consumed ${timeused} ms, pp is ${user_pp}`, "GAYM")
 
-        if (this.score < 5) {
+        let scoretoquestions = this.score / this.count
+        if (scoretoquestions < 0.5) {
             msg.channel.send(randomfrom(words.end_game.noob_msg))
             msg.channel.send(randomfrom(words.end_game.noob_pic))
         }
-        else if (this.score < 8) {
+        else if (scoretoquestions < 0.8) {
             msg.channel.send(randomfrom(words.end_game.intermediate_msg))
             msg.channel.send(randomfrom(words.end_game.intermediate_pic))
         }

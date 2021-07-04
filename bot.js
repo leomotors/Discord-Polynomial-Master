@@ -30,11 +30,6 @@ client.on("message", eval_msg)
 // * Class for handling a game
 class Gaym {
     constructor() {
-        this.questions_dict = undefined
-        this.questions = undefined
-        this.player = undefined
-        this.difficulty = -1
-        this.count = -1
         this.index = -1
         this.score = 0
         this.ready = false
@@ -49,6 +44,7 @@ class Gaym {
             this.player = msg.author
             this.count = this.questions.length
             this.ready = true
+            //this.start = Date.now()
 
             msg.channel.send(`Beginning a gaym! with difficulty of ${this.difficulty}`)
             logconsole(`Starting a gaym with ${msg.author.tag} and difficulty of ${this.difficulty}`, "GAYM START")

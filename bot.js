@@ -71,7 +71,7 @@ class Gaym {
 
             if (this.count != nquestions) {
                 logconsole(`Got ${this.count} questions instead of ${nquestions}! blame Polynomial Problems Generator`, "ERROR")
-                if (strike >= 3) {
+                if (strike >= 2) {
                     msg.channel.send(`ERROR GENERATING QUESTIONS`)
                     logconsole(`Game Initialization Failed!`, "FATAL ERROR")
                     current_gaym = undefined

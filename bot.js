@@ -46,8 +46,7 @@ class Gaym {
             this.ready = true
             this.start = Date.now()
 
-            if(this.count != 10)
-            {
+            if (this.count != 10) {
                 logconsole(`Got ${this.count} questions instead of 10! blame Polynomial Problems Generator`, "ERROR")
                 this.init(msg)
                 return
@@ -109,7 +108,7 @@ class Gaym {
 
         let user_pp = this.pp(timeused)
 
-        msg.channel.send(`Your PP is ${user_pp > 0 ? user_pp : "*too smol to be displayed*"}`)
+        msg.channel.send(`Your PP is ${user_pp > 0 ? user_pp.toFixed(3) : "*too smol to be displayed*"}`)
 
         logconsole(`Challenge with ${this.player.tag} ended, scored ${this.score}/${this.count}, consumed ${timeused} ms, pp is ${user_pp}`, "GAYM")
 
@@ -130,17 +129,18 @@ class Gaym {
     pp(timeused) // * Calculate Performance Point
     {
         /**
-         * * PP = (diff/timeused) * (correct:all ratio)^2 * (questions ^ 0.5) * 10^6
+         * * PP = (diff/ sqrt(timeused) ) * (correct:all ratio)^2 * (diff ^ 0.5) * (questions ^ 0.5) * 1000
          */
-        let user_pp = (this.difficulty / timeused) * Math.pow(this.score / this.count, 2) * Math.pow(this.count, 0.5)
 
-        return user_pp * 1000000
+        let user_pp = (Math.pow(this.difficulty, 1.5) / Math.pow(timeused, 0.5)) * Math.pow(this.score / this.count, 2) * Math.pow(this.count, 0.5)
+
+        return user_pp * 1000
     }
 
     igiveup(msg) {
         let elapsed = Date.now() - this.start
 
-        msg.channel.send(`Challenge Aborted! **You scored ${this.score}**, elapsed ${elapsed/1000} seconds.`)
+        msg.channel.send(`Challenge Aborted! **You scored ${this.score}**, elapsed ${elapsed / 1000} seconds.`)
         msg.channel.send(`Even though you give up, but *I will never gonna give you up*`)
         msg.channel.send("https://tenor.com/view/dance-moves-dancing-singer-groovy-gif-17029825")
 

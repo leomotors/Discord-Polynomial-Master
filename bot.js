@@ -44,7 +44,7 @@ class Gaym {
             this.player = msg.author
             this.count = this.questions.length
             this.ready = true
-            //this.start = Date.now()
+            this.start = Date.now()
 
             msg.channel.send(`Beginning a gaym! with difficulty of ${this.difficulty}`)
             logconsole(`Starting a gaym with ${msg.author.tag} and difficulty of ${this.difficulty}`, "GAYM START")
@@ -96,8 +96,12 @@ class Gaym {
     }
 
     finalize(msg) {
+        let timeused = Date.now() - this.start // * ms
+
         msg.channel.send(`Challenge Completed! With difficulty of ${this.difficulty}, **You scored ${this.score}/${this.count}**`)
-        logconsole(`Challenge with ${this.player.tag} ended, scored ${this.score}/${this.count}`, "GAYM")
+        msg.channel.send(`Time used: ${timeused/1000} seconds`)
+
+        logconsole(`Challenge with ${this.player.tag} ended, scored ${this.score}/${this.count}, consumed ${timeused} ms`, "GAYM")
 
         if (this.score < 5) {
             msg.channel.send(randomfrom(words.end_game.noob_msg))

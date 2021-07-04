@@ -48,8 +48,8 @@ class Gaym {
 
             if(this.count != 10)
             {
-                logconsole(`Got ${this.count} questions instead of 10!`, "ERROR")
-                this.init()
+                logconsole(`Got ${this.count} questions instead of 10! blame Polynomial Problems Generator`, "ERROR")
+                this.init(msg)
                 return
             }
 
@@ -138,9 +138,13 @@ class Gaym {
     }
 
     igiveup(msg) {
-        msg.channel.send(`Challenge Aborted! **You scored ${this.score}**`)
+        let elapsed = Date.now() - this.start
+
+        msg.channel.send(`Challenge Aborted! **You scored ${this.score}**, elapsed ${elapsed/1000} seconds.`)
         msg.channel.send(`Even though you give up, but *I will never gonna give you up*`)
         msg.channel.send("https://tenor.com/view/dance-moves-dancing-singer-groovy-gif-17029825")
+
+        logconsole(`Challenge with ${this.player.tag} is aborted, elapsed ${elapsed} ms`)
     }
 }
 

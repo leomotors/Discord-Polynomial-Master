@@ -79,8 +79,8 @@ class Gaym {
                 return
             }
 
-            msg.channel.send(`Beginning a gaym! with difficulty of ${this.difficulty}`)
-            logconsole(`Starting a gaym with ${msg.author.tag} and difficulty of ${this.difficulty}`, "GAYM START")
+            msg.channel.send(`Beginning a gaym! ${nquestions} questions at difficulty of ${this.difficulty}`)
+            logconsole(`Starting a gaym with ${msg.author.tag}, ${nquestions} questions at difficulty of ${this.difficulty}`, "GAYM START")
 
             this.ask(msg.channel)
         })

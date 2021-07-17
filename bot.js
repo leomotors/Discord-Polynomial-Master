@@ -12,6 +12,7 @@ const activity = require("./assets/json/activity.json")
 const randomfrom = require("./utils/randomfrom.js")
 
 const { exec } = require("child_process")
+const chalk = require("chalk")
 
 // * Discord Setup
 const Discord = require("discord.js")
@@ -20,7 +21,7 @@ const client = new Discord.Client()
 client.on("ready", () => {
     console.log(`[LOGIN SUCCESS] Successfully logged in as ${client.user.tag}.`)
     client.user.setActivity(`${activity.activity.name}`, { type: activity.activity.type })
-    console.log("==========> BOT READY <==========")
+    console.log(chalk.green("==========> BOT READY TO USE <=========="))
 })
 
 client.login(auth.token)
@@ -265,7 +266,6 @@ function eval_msg(msg) {
 // * DEBUG ZONE
 
 const readline = require("readline") // * Module for debug only
-const { type } = require("os")
 
 const rl = readline.createInterface({
     input: process.stdin,

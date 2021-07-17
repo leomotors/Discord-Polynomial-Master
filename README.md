@@ -48,6 +48,8 @@ Require Build 90+
 
 **Discord** (Of course you need this) : ```npm i discord.js```
 
+**chalk** : ```npm i chalk```
+
 **Note**: If installation is failed, try again with elevation.
 
 ## 🌿 Parent of this Repository

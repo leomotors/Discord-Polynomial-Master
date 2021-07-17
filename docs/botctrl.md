@@ -14,6 +14,10 @@ Force to abort the current game
 
 Properly logout
 
+### help
+
+Bring you here
+
 ## Bot Settings
 
 Found in bot_settings.json

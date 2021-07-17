@@ -288,7 +288,9 @@ function debug(commandstr) {
             client.destroy()
             logconsole("Successfully safely logged out", "LOGOUT")
             process.exit(0)
-
+        case "help":
+            console.log("Hope this help: https://github.com/Leomotors/Discord-Polynomial-Master/blob/main/docs/botctrl.md")
+            break
         default:
             logconsole(`Unknown Command "${command[0]}"`, "DEBUG-ERROR")
     }

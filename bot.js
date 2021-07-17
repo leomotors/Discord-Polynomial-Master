@@ -280,6 +280,10 @@ function debug(commandstr) {
     let command = commandstr.split(" ")
     switch (command[0]) {
         case "stopgaym":
+            if (!current_gaym) {
+                logconsole(`There is no game running!`, "DEBUG-ERROR")
+                break
+            }
             current_gaym.lastchannel.send(`This gaym with <@!${current_gaym.player.id}> has been forced to abort by the owner`)
             logconsole(`Aborted Current Gaym with ${current_gaym.player.tag}`, "DEBUG")
             current_gaym = undefined
